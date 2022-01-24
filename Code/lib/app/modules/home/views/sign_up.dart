@@ -99,7 +99,7 @@ class SignUp extends GetView<HomeController>{
             ElevatedButton(
               onPressed: () {
                 controller.isClickedSignUp.value = 1;
-                // Get.to(HomeView());
+                Get.to(HomeView());
               }, 
               child: Text('Sign up')
             )

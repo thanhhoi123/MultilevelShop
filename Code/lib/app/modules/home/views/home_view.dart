@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:shop_multilevel/app/data/http_methods.dart';
 import 'package:shop_multilevel/app/data/user.dart';
 import 'package:shop_multilevel/app/modules/home/views/list_product.dart';
@@ -22,9 +23,16 @@ class HomeView extends GetView<HomeController> {
         centerTitle: true,
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(vertical: 100, horizontal: 10),
+        margin: EdgeInsets.symmetric(vertical: 40, horizontal: 10),
         child: Column(
           children: <Widget>[
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 60),
+              child: Text(
+                'Multilevel Shop',
+                style: TextStyle(fontSize: 40),
+              ),
+            ),
             Row(
               children: [
                 Padding(
@@ -70,45 +78,27 @@ class HomeView extends GetView<HomeController> {
               ],
             ),
 
-            Obx((){
-              return Container(
-                child: (controller.isClickedSignIn.value == 1)?
-                FutureBuilder<User>(
-                  future: HttpMethods.userLogin(
-                    controller.currentEmail, 
-                    controller.currentPassword
-                  ),
-                  builder: (context, snapshot){
-                    if(snapshot.data == null){
-                      return Text('Failed');
-                    }
-                    else{
-                      controller.currentUser = snapshot.data!;
-                      controller.currentCart.address = snapshot.data!.address.toString();
-                      print(snapshot.data);
-                      return Text('Success');
-                    }
-                  },
-                ):
-                Text(''),
-              );
-            }),
-
             Container(
               margin: EdgeInsets.symmetric(vertical: 30),
               height: 50,
               width: 150,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async{
                   controller.isClickedSignIn.value = 1;
-                  Get.to(() => ListProduct());
+                  controller.currentUser = await controller.login();
+                  if(controller.currentUser!.id != null ){
+                    Get.to(() => ListProduct());                    
+                  }
+                  else{
+                    print('Failed');
+                  }
                 },
                 child: Text('Sign in'),
               ),
             ),
 
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 50),
+              margin: EdgeInsets.symmetric(horizontal: 30),
               child: RichText(
                 text: TextSpan(
                   text: 'Do you have a account? ',
@@ -132,5 +122,9 @@ class HomeView extends GetView<HomeController> {
     );
   }
 }
+
+
+
+
 
 

@@ -7,6 +7,7 @@ import 'package:shop_multilevel/app/data/user.dart';
 
 class HomeController extends GetxController {
   
+  var httpMethod = HttpMethods();
   User? currentUser;
   String currentEmail = '';
   String currentPassword = '';
@@ -39,10 +40,22 @@ class HomeController extends GetxController {
   @override
   void onClose() {}
 
+  void SignUp(){
+
+  }
+
+  Future<User> login() async{
+    return await HttpMethods.userLogin(currentEmail, currentPassword);
+  }
+
   void Order(){
     currentCart.listAmount!.add(amount);
     currentCart.listID!.add(currentProduct!.id);
     productCart.add(currentProduct!);
     listPrice.add(currentProduct!.price! * int.parse(amount));
+  }
+
+  void Buy(){
+
   }
 }
