@@ -67,8 +67,26 @@ class DetailProduct extends GetView<HomeController>{
               width: 175,
               child: ElevatedButton(
                 onPressed: () {
-                  controller.Order();
-                  Get.to(() => OrderProduct());
+                  if(controller.Order()){
+                    showDialog(
+                      context: context, 
+                      builder: (context) => AlertDialog(
+                        title: Text('Error'),
+                        content: Text('You must enter less than the remaining amount'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                            }, 
+                            child: Text('OK', style: TextStyle(color: Colors.purple[700]))
+                          )
+                        ],
+                      ),
+                    );                    
+                  }
+                  else{
+                    Get.to(() => OrderProduct());
+                  }
                 }, 
                 child: Text('Add to cart', style: TextStyle(fontSize: 20),)
               ),

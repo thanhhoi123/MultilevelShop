@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:shop_multilevel/app/data/cart.dart';
-import 'package:shop_multilevel/app/data/http_methods.dart';
 import 'package:shop_multilevel/app/modules/home/controllers/home_controller.dart';
+import 'package:shop_multilevel/app/modules/home/views/list_product.dart';
 
 class OrderProduct extends GetView<HomeController>{
   @override
@@ -11,6 +9,10 @@ class OrderProduct extends GetView<HomeController>{
     return Scaffold(
       appBar: AppBar(
         title: Text('Order Screen'),
+        leading: IconButton(
+          icon: Icon(Icons.home),
+          onPressed: () => Get.to(() => ListProduct()),
+        ),
         centerTitle: true,
       ),
       body: Center(
@@ -45,76 +47,71 @@ class OrderProduct extends GetView<HomeController>{
 
             Expanded(
               child: SizedBox(
-                child: ListView.builder(
-                  itemCount: controller.currentCart.listID!.length,
-                  itemBuilder: (context, index){
-                    return Card(
-                      child: ListTile(
-                        leading: Container(
-                          child: Image.network(controller.productCart[index].image.toString())
+                child: Obx((){
+                  return ListView.builder(
+                    itemCount: controller.currentCart.listID!.length,
+                    itemBuilder: (context, index){
+                      return Card(
+                        child: ListTile(
+                          leading: Container(
+                            child: Image.network(controller.productCart[index].image.toString())
+                          ),
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Name: ${controller.productCart[index].name.toString()}',
+                                style: TextStyle(fontSize: 20),
+                                softWrap: true,
+                              ),
+                              Text(
+                                'Amount: ${controller.currentCart.listAmount![index]}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              Text(
+                                'Price: ${controller.listPrice[index]}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ],                              
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              controller.productCart.removeAt(index);
+                              controller.currentCart.listID!.removeAt(index);
+                              controller.currentCart.listAmount!.removeAt(index);
+                            },
+                          ),
                         ),
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Name: ${controller.productCart[index].name.toString()}',
-                              style: TextStyle(fontSize: 20),
-                              softWrap: true,
-                            ),
-                            Text(
-                              'Amount: ${controller.currentCart.listAmount![index]}',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            Text(
-                              'Price: ${controller.listPrice[index]}',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ],                              
-                        ),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                      );
+                    },
+                  );
+                }),
               ),
             ),
 
-            Obx((){
-              return Container(
-                child: (controller.isClickedBuy.value == 1)?
-                FutureBuilder<Cart>(
-                  future: HttpMethods.orderProduct(
-                    controller.currentUser!.id!.toInt(), 
-                    controller.currentUser!.address.toString(), 
-                    1, 
-                    controller.currentCart.listID!, 
-                    controller.currentCart.listAmount!
-                  ),
-                  builder: (context, snapshot){
-                    if(snapshot.data == null){
-                      return Text('Failed');
-                    }
-                    else{
-                      print(snapshot.data);
-                      return Text('Success');
-                    }
-                  },
-                ):
-                Text(''),
-              );
-            }),
-
             Container(
+              margin: EdgeInsets.symmetric(vertical: 15),
               width: 150,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                  controller.isClickedBuy.value = 1;
+                onPressed: () async{
+                  await controller.Buy();
+                  showDialog(
+                    context: context, 
+                    builder: (context) => AlertDialog(
+                      title: Text('Notification'),
+                      content: Text('Your order has been successfully placed'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Get.to(() => ListProduct());
+                          }, 
+                          child: Text('OK', style: TextStyle(color: Colors.purple[700]))
+                        )
+                      ],
+                    ),
+                  );                  
                 }, 
                 child: Text('Buy')
               ),

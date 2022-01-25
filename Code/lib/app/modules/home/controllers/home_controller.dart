@@ -6,7 +6,6 @@ import 'package:shop_multilevel/app/data/product.dart';
 import 'package:shop_multilevel/app/data/user.dart';
 
 class HomeController extends GetxController {
-  
   var httpMethod = HttpMethods();
   User? currentUser;
   String? txtEmailLogin;
@@ -21,7 +20,7 @@ class HomeController extends GetxController {
 
   //Cart
   String amount = '';
-  Cart currentCart = new Cart(address: '', accept: 1, listAmount: [], listID: []);
+  Cart currentCart = new Cart(address: '', accept: 1, listAmount: [], listID: [].obs);
   List<Product> productCart  = [];
   List listPrice = [];
   final isClickedBuy = 0.obs;
@@ -65,14 +64,32 @@ class HomeController extends GetxController {
     }
   }
 
-  void Order(){
-    currentCart.listAmount!.add(amount);
-    currentCart.listID!.add(currentProduct!.id);
-    productCart.add(currentProduct!);
-    listPrice.add(currentProduct!.price! * int.parse(amount));
+  bool Order(){
+    if(int.parse(amount) < currentProduct!.amount!.toInt()){
+      return false;
+    }
+    else{
+      currentCart.listAmount!.add(amount);
+      currentCart.listID!.add(currentProduct!.id);
+      productCart.add(currentProduct!);
+      listPrice.add(currentProduct!.price! * int.parse(amount));
+      return true;
+    }
   }
 
-  void Buy(){
+  Future<void> Buy() async{
+    await HttpMethods.orderProduct(
+      currentUser!.id!.toInt(), 
+      currentUser!.address.toString(), 
+      1, 
+      currentCart.listID!, 
+      currentCart.listAmount!
+    );
+  }
 
+  void deleteProductCart(int index){
+    productCart.removeAt(index);
+    currentCart.listID!.removeAt(index);
+    currentCart.listAmount!.removeAt(index);
   }
 }
