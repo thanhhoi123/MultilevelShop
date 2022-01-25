@@ -40,7 +40,7 @@ class HomeView extends GetView<HomeController> {
                       padding: const EdgeInsets.fromLTRB(4, 0, 8, 0),
                       child: TextField(
                         onSubmitted: (value){
-                          controller.currentEmail = value;
+                          controller.txtEmailLogin = value;
                         },
                         decoration: InputDecoration(
                           hintText: 'Enter your email',
@@ -62,7 +62,7 @@ class HomeView extends GetView<HomeController> {
                       padding: const EdgeInsets.fromLTRB(4, 10, 8, 0),
                       child: TextField(
                         onSubmitted: (value){
-                          controller.currentPassword = value;
+                          controller.txtPasswordLogin = value;
                         },
                         decoration: InputDecoration(
                           hintText: 'Enter your password',
@@ -80,13 +80,10 @@ class HomeView extends GetView<HomeController> {
               width: 150,
               child: ElevatedButton(
                 onPressed: () async{
-                  controller.isClickedSignIn.value = 1;
-                  controller.currentUser = await controller.login();
-                  if(controller.currentUser!.id != null ){
+                  if(await controller.login()){
                     Get.to(() => ListProduct());                    
                   }
                   else{
-                    print('Failed');
                     showDialog(
                       context: context, 
                       builder: (context) => AlertDialog(

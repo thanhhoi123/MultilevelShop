@@ -9,8 +9,8 @@ class HomeController extends GetxController {
   
   var httpMethod = HttpMethods();
   User? currentUser;
-  String currentEmail = '';
-  String currentPassword = '';
+  String? txtEmailLogin;
+  String? txtPasswordLogin;
   final isClickedSignIn = 0.obs;
 
   String? signUpName, signUpEmail, signUpPhone, signUpAddress, signUpPassword;
@@ -50,8 +50,19 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<User> login() async{
-    return await HttpMethods.userLogin(currentEmail, currentPassword);
+  Future<bool> login() async{
+    if(txtEmailLogin == null || txtPasswordLogin == null){
+      return false;
+    }
+    else{
+      currentUser = await HttpMethods.userLogin(txtEmailLogin.toString(), txtPasswordLogin.toString());
+      if(currentUser!.id == null){
+        return false;
+      }
+      else{
+        return true;
+      }
+    }
   }
 
   void Order(){

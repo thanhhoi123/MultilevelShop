@@ -71,39 +71,28 @@ class SignUp extends GetView<HomeController>{
                 ],
               ),
             ),
-            
-            // Obx((){
-            //   return Container(
-            //     child: (controller.isClickedSignUp.value == 1)?
-            //     FutureBuilder<User>(
-            //       future: HttpMethods.signUpUser(
-            //         controller.signUpName.toString(), 
-            //         controller.signUpEmail.toString(), 
-            //         controller.signUpPassword.toString(), 
-            //         controller.signUpPhone.toString(), 
-            //         controller.signUpAddress.toString()
-            //       ),
-            //       builder: (context, snapshot){
-            //         if(snapshot.data == null){
-            //           return Text('');
-            //         }
-            //         else{
-            //           return Text('');
-            //         }
-            //       },
-            //     ):
-            //     Text(''),
-            //   );
-            // }),
 
             ElevatedButton(
               onPressed: () async{
-                //controller.isClickedSignUp.value = 1;
                 if(await controller.signUp()){
                   Get.to(() => HomeView());
                 }
                 else{
-                  print('Failed');
+                  showDialog(
+                    context: context, 
+                    builder: (context) => AlertDialog(
+                      title: Text('Error'),
+                      content: Text('You must enter all values'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Get.back();
+                          }, 
+                          child: Text('OK', style: TextStyle(color: Colors.purple[700]))
+                        )
+                      ],
+                    ),
+                  );                  
                 }
               }, 
               child: Text('Sign up')
