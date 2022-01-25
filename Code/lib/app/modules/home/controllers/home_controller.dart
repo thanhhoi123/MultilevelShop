@@ -40,8 +40,14 @@ class HomeController extends GetxController {
   @override
   void onClose() {}
 
-  void SignUp(){
-
+  Future<bool> signUp() async{
+    if(signUpName == null || signUpEmail == null || signUpPhone == null || signUpAddress == null || signUpPassword == null){
+      return false;
+    }
+    else{
+      await HttpMethods.signUpUser(signUpName!, signUpEmail!, signUpPassword!, signUpPhone!, signUpAddress!);
+      return true;
+    }
   }
 
   Future<User> login() async{

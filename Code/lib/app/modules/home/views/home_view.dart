@@ -1,16 +1,12 @@
 // import 'dart:js';
+import 'package:path/path.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:http/http.dart';
-import 'package:shop_multilevel/app/data/http_methods.dart';
-import 'package:shop_multilevel/app/data/user.dart';
 import 'package:shop_multilevel/app/modules/home/views/list_product.dart';
-import 'package:shop_multilevel/app/modules/home/views/profile_user.dart';
 import 'package:shop_multilevel/app/modules/home/views/sign_up.dart';
-
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -91,6 +87,21 @@ class HomeView extends GetView<HomeController> {
                   }
                   else{
                     print('Failed');
+                    showDialog(
+                      context: context, 
+                      builder: (context) => AlertDialog(
+                        title: Text('Error'),
+                        content: Text('Incorrect email or password'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Get.back();
+                            }, 
+                            child: Text('OK', style: TextStyle(color: Colors.purple[700]))
+                          )
+                        ],
+                      ),
+                    );
                   }
                 },
                 child: Text('Sign in'),
@@ -120,11 +131,5 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
     );
-  }
+  }  
 }
-
-
-
-
-
-

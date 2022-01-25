@@ -72,34 +72,39 @@ class SignUp extends GetView<HomeController>{
               ),
             ),
             
-            Obx((){
-              return Container(
-                child: (controller.isClickedSignUp.value == 1)?
-                FutureBuilder<User>(
-                  future: HttpMethods.signUpUser(
-                    controller.signUpName.toString(), 
-                    controller.signUpEmail.toString(), 
-                    controller.signUpPassword.toString(), 
-                    controller.signUpPhone.toString(), 
-                    controller.signUpAddress.toString()
-                  ),
-                  builder: (context, snapshot){
-                    if(snapshot.data == null){
-                      return Text('');
-                    }
-                    else{
-                      return Text('');
-                    }
-                  },
-                ):
-                Text(''),
-              );
-            }),
+            // Obx((){
+            //   return Container(
+            //     child: (controller.isClickedSignUp.value == 1)?
+            //     FutureBuilder<User>(
+            //       future: HttpMethods.signUpUser(
+            //         controller.signUpName.toString(), 
+            //         controller.signUpEmail.toString(), 
+            //         controller.signUpPassword.toString(), 
+            //         controller.signUpPhone.toString(), 
+            //         controller.signUpAddress.toString()
+            //       ),
+            //       builder: (context, snapshot){
+            //         if(snapshot.data == null){
+            //           return Text('');
+            //         }
+            //         else{
+            //           return Text('');
+            //         }
+            //       },
+            //     ):
+            //     Text(''),
+            //   );
+            // }),
 
             ElevatedButton(
-              onPressed: () {
-                controller.isClickedSignUp.value = 1;
-                Get.to(HomeView());
+              onPressed: () async{
+                //controller.isClickedSignUp.value = 1;
+                if(await controller.signUp()){
+                  Get.to(() => HomeView());
+                }
+                else{
+                  print('Failed');
+                }
               }, 
               child: Text('Sign up')
             )
