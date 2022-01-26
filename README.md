@@ -24,3 +24,9 @@
 
 ![image](https://user-images.githubusercontent.com/87430163/151163805-660b27db-e14c-4ffe-84b4-2f5780fb3475.png)
 
+**Information of the app**
+- Flutter: 2.8.1
+- Dart: 2.15.1
+- Use library:
+- + get: 4.6.1  
+  + http: 0.13.4
