@@ -6,7 +6,6 @@ import 'package:shop_multilevel/app/data/product.dart';
 import 'package:shop_multilevel/app/data/user.dart';
 
 class HomeController extends GetxController {
-  var httpMethod = HttpMethods();
   User? currentUser;
   String? txtEmailLogin;
   String? txtPasswordLogin;
@@ -65,7 +64,7 @@ class HomeController extends GetxController {
   }
 
   bool Order(){
-    if(int.parse(amount) < currentProduct!.amount!.toInt()){
+    if(int.parse(amount) > currentProduct!.amount!.toInt()){
       return false;
     }
     else{
@@ -85,6 +84,9 @@ class HomeController extends GetxController {
       currentCart.listID!, 
       currentCart.listAmount!
     );
+    productCart.clear();
+    currentCart.listID!.clear();
+    currentCart.listAmount!.clear();
   }
 
   void deleteProductCart(int index){

@@ -61,6 +61,7 @@ class HomeView extends GetView<HomeController> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(4, 10, 8, 0),
                       child: TextField(
+                        obscureText: true,
                         onSubmitted: (value){
                           controller.txtPasswordLogin = value;
                         },

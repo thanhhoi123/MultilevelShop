@@ -72,7 +72,7 @@ class OrderProduct extends GetView<HomeController>{
                                 'Price: ${controller.listPrice[index]}',
                                 style: TextStyle(fontSize: 20),
                               ),
-                            ],                              
+                            ],
                           ),
                           trailing: IconButton(
                             icon: Icon(Icons.delete),
@@ -105,6 +105,7 @@ class OrderProduct extends GetView<HomeController>{
                       actions: [
                         TextButton(
                           onPressed: () {
+                            print(controller.currentCart.listID!.length); 
                             Get.to(() => ListProduct());
                           }, 
                           child: Text('OK', style: TextStyle(color: Colors.purple[700]))

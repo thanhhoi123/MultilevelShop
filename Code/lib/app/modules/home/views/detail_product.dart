@@ -67,7 +67,7 @@ class DetailProduct extends GetView<HomeController>{
               width: 175,
               child: ElevatedButton(
                 onPressed: () {
-                  if(controller.Order()){
+                  if(!controller.Order()){
                     showDialog(
                       context: context, 
                       builder: (context) => AlertDialog(
@@ -86,7 +86,7 @@ class DetailProduct extends GetView<HomeController>{
                   }
                   else{
                     Get.to(() => OrderProduct());
-                  }
+                  }                
                 }, 
                 child: Text('Add to cart', style: TextStyle(fontSize: 20),)
               ),

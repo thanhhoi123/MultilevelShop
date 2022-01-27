@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:shop_multilevel/app/modules/home/controllers/home_controller.dart';
 import 'package:shop_multilevel/app/modules/home/values/app_styles.dart';
+import 'package:shop_multilevel/app/modules/home/views/home_view.dart';
 
 class ProfileUser extends GetView<HomeController>{
   @override
@@ -11,6 +12,20 @@ class ProfileUser extends GetView<HomeController>{
       appBar: AppBar(
         title: Text('Profile'),
         centerTitle: true,
+        actions: [
+          PopupMenuButton(
+            icon: Icon(Icons.more_vert),
+            itemBuilder: (context) => <PopupMenuEntry>[
+              PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.logout),
+                  title: Text('Log out'),
+                  onTap: () => Get.to(() => HomeView()),
+                )
+              )
+            ]
+          )
+        ],
       ),
       body: Center(
         child: Column(
