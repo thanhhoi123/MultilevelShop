@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_multilevel/app/modules/home/controllers/home_controller.dart';
@@ -9,10 +10,7 @@ class OrderProduct extends GetView<HomeController>{
     return Scaffold(
       appBar: AppBar(
         title: Text('Order Screen'),
-        leading: IconButton(
-          icon: Icon(Icons.home),
-          onPressed: () => Get.to(() => ListProduct()),
-        ),
+        automaticallyImplyLeading: false,
         centerTitle: true,
       ),
       body: Center(
@@ -97,7 +95,11 @@ class OrderProduct extends GetView<HomeController>{
               child: ElevatedButton(
                 onPressed: () async{
                   await controller.Buy();
-                  showDialog(
+                  showModal(
+                    configuration: FadeScaleTransitionConfiguration(
+                      transitionDuration: Duration(seconds: 2),
+                      reverseTransitionDuration: Duration(seconds: 2)
+                    ),
                     context: context, 
                     builder: (context) => AlertDialog(
                       title: Text('Notification'),
@@ -105,7 +107,6 @@ class OrderProduct extends GetView<HomeController>{
                       actions: [
                         TextButton(
                           onPressed: () {
-                            print(controller.currentCart.listID!.length); 
                             Get.to(() => ListProduct());
                           }, 
                           child: Text('OK', style: TextStyle(color: Colors.purple[700]))

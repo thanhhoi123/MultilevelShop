@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:shop_multilevel/app/modules/home/controllers/home_controller.dart';
 import 'package:shop_multilevel/app/modules/home/values/app_styles.dart';
@@ -12,6 +11,7 @@ class ProfileUser extends GetView<HomeController>{
       appBar: AppBar(
         title: Text('Profile'),
         centerTitle: true,
+        automaticallyImplyLeading: false,
         actions: [
           PopupMenuButton(
             icon: Icon(Icons.more_vert),
@@ -37,7 +37,7 @@ class ProfileUser extends GetView<HomeController>{
             ):
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 70, vertical: 30),
-              child: Image.asset('assets/avatar_default.jpeg')
+              child: Image.network('https://www.google.com.vn/search?q=avatar+person+default+remove+backgroud&tbm=isch&ved=2ahUKEwjOl7GbydP1AhWn0IsBHTY3CuAQ2-cCegQIABAA&oq=avatar+person+default+remove+backgroud&gs_lcp=CgNpbWcQAzoHCCMQ7wMQJ1D_AljjJ2DuLmgCcAB4AIABrgGIAdoOkgEEOC4xMJgBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=DGzzYc7hCKehr7wPtu6ogA4&bih=754&biw=1536#imgrc=vUnatp4jtxRPyM')
             ),
             Container(
               padding: EdgeInsets.all(20),

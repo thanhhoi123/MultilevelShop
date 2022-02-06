@@ -13,12 +13,7 @@ class ListProduct extends GetView<HomeController>{
       appBar: AppBar(
         title: Text('List Product'),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Get.to(() => ProfileUser());
-          },
-          icon: Icon(Icons.person),
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<Product>>(
         future: HttpMethods.getListProduct(),

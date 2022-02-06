@@ -9,10 +9,8 @@ class HomeController extends GetxController {
   User? currentUser;
   String? txtEmailLogin;
   String? txtPasswordLogin;
-  final isClickedSignIn = 0.obs;
 
   String? signUpName, signUpEmail, signUpPhone, signUpAddress, signUpPassword;
-  final isClickedSignUp = 0.obs;
 
   //Detail Product
   Product? currentProduct;
@@ -22,21 +20,6 @@ class HomeController extends GetxController {
   Cart currentCart = new Cart(address: '', accept: 1, listAmount: [], listID: [].obs);
   List<Product> productCart  = [];
   List listPrice = [];
-  final isClickedBuy = 0.obs;
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
 
   Future<bool> signUp() async{
     if(signUpName == null || signUpEmail == null || signUpPhone == null || signUpAddress == null || signUpPassword == null){

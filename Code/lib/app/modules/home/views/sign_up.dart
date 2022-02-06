@@ -1,8 +1,6 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:shop_multilevel/app/data/http_methods.dart';
-import 'package:shop_multilevel/app/data/user.dart';
 import 'package:shop_multilevel/app/modules/home/controllers/home_controller.dart';
 import 'package:shop_multilevel/app/modules/home/views/home_view.dart';
 
@@ -78,7 +76,11 @@ class SignUp extends GetView<HomeController>{
                   Get.to(() => HomeView());
                 }
                 else{
-                  showDialog(
+                  showModal(
+                    configuration: FadeScaleTransitionConfiguration(
+                      transitionDuration: Duration(seconds: 1),
+                      reverseTransitionDuration: Duration(seconds: 2)
+                    ),
                     context: context, 
                     builder: (context) => AlertDialog(
                       title: Text('Error'),

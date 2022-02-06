@@ -1,10 +1,9 @@
-// import 'dart:js';
-import 'package:path/path.dart';
-
+import 'package:animations/animations.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:shop_multilevel/app/modules/home/navigation/dash_board.dart';
 import 'package:shop_multilevel/app/modules/home/views/list_product.dart';
 import 'package:shop_multilevel/app/modules/home/views/sign_up.dart';
 import '../controllers/home_controller.dart';
@@ -82,10 +81,14 @@ class HomeView extends GetView<HomeController> {
               child: ElevatedButton(
                 onPressed: () async{
                   if(await controller.login()){
-                    Get.to(() => ListProduct());                    
+                    Get.to(() => DashBoard());                    
                   }
                   else{
-                    showDialog(
+                    showModal(
+                      configuration: FadeScaleTransitionConfiguration(
+                        transitionDuration: Duration(seconds: 1),
+                        reverseTransitionDuration: Duration(seconds: 1)
+                      ),
                       context: context, 
                       builder: (context) => AlertDialog(
                         title: Text('Error'),
