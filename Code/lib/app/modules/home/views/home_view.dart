@@ -14,16 +14,16 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
         centerTitle: true,
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(vertical: 40, horizontal: 10),
+        margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 10),
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.symmetric(vertical: 60),
-              child: Text(
+              margin: const EdgeInsets.symmetric(vertical: 60),
+              child: const Text(
                 'Multilevel Shop',
                 style: TextStyle(fontSize: 40),
               ),
@@ -32,7 +32,7 @@ class HomeView extends GetView<HomeController> {
               children: [
                 Padding(
                     padding: const EdgeInsets.fromLTRB(8, 0, 50, 0),
-                    child: Text('Email: ', style: TextStyle(fontSize: 25),),
+                    child: const Text('Email: ', style: TextStyle(fontSize: 25),),
                 ),
                 Flexible(
                     child: Padding(
@@ -54,7 +54,7 @@ class HomeView extends GetView<HomeController> {
               children: [
                 Padding(
                     padding: const EdgeInsets.fromLTRB(8, 10, 4, 0),
-                    child: Text('Password: ', style: TextStyle(fontSize: 25),),
+                    child: const Text('Password: ', style: TextStyle(fontSize: 25),),
                 ),
                 Flexible(
                     child: Padding(
@@ -75,38 +75,45 @@ class HomeView extends GetView<HomeController> {
             ),
 
             Container(
-              margin: EdgeInsets.symmetric(vertical: 30),
+              margin: const EdgeInsets.symmetric(vertical: 30),
               height: 50,
               width: 150,
-              child: ElevatedButton(
-                onPressed: () async{
-                  if(await controller.login()){
-                    Get.to(() => DashBoard());                    
-                  }
-                  else{
-                    showModal(
-                      configuration: FadeScaleTransitionConfiguration(
-                        transitionDuration: Duration(seconds: 1),
-                        reverseTransitionDuration: Duration(seconds: 1)
-                      ),
-                      context: context, 
-                      builder: (context) => AlertDialog(
-                        title: Text('Error'),
-                        content: Text('Incorrect email or password'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Get.back();
-                            }, 
-                            child: Text('OK', style: TextStyle(color: Colors.purple[700]))
-                          )
-                        ],
-                      ),
-                    );
-                  }
-                },
-                child: Text('Sign in'),
-              ),
+              child: Obx((){
+                return ElevatedButton(
+                  onPressed: () async{
+                    controller.isLoadingSignIn.value = true;
+                    if(await controller.login()){
+                      controller.isLoadingSignIn.value = false;
+                      Get.to(() => DashBoard());                    
+                    }
+                    else{
+                      controller.isLoadingSignIn.value = false;
+                      showModal(
+                        configuration: FadeScaleTransitionConfiguration(
+                          transitionDuration: const Duration(seconds: 1),
+                          reverseTransitionDuration: const Duration(seconds: 1)
+                        ),
+                        context: context, 
+                        builder: (context) => AlertDialog(
+                          title: const Text('Error'),
+                          content: const Text('Incorrect email or password'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Get.back();
+                              }, 
+                              child: Text('OK', style: TextStyle(color: Colors.purple[700]))
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                  child: controller.isLoadingSignIn.value
+                    ? CircularProgressIndicator(color: Colors.white,)
+                    : const Text('Sign in')
+                );
+              }),
             ),
 
             Container(

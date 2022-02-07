@@ -9,7 +9,7 @@ class ProfileUser extends GetView<HomeController>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
         centerTitle: true,
         automaticallyImplyLeading: false,
         actions: [
@@ -19,7 +19,7 @@ class ProfileUser extends GetView<HomeController>{
               PopupMenuItem(
                 child: ListTile(
                   leading: Icon(Icons.logout),
-                  title: Text('Log out'),
+                  title: const Text('Log out'),
                   onTap: () => Get.to(() => HomeView()),
                 )
               )
@@ -40,8 +40,8 @@ class ProfileUser extends GetView<HomeController>{
               child: Image.network('https://www.google.com.vn/search?q=avatar+person+default+remove+backgroud&tbm=isch&ved=2ahUKEwjOl7GbydP1AhWn0IsBHTY3CuAQ2-cCegQIABAA&oq=avatar+person+default+remove+backgroud&gs_lcp=CgNpbWcQAzoHCCMQ7wMQJ1D_AljjJ2DuLmgCcAB4AIABrgGIAdoOkgEEOC4xMJgBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=DGzzYc7hCKehr7wPtu6ogA4&bih=754&biw=1536#imgrc=vUnatp4jtxRPyM')
             ),
             Container(
-              padding: EdgeInsets.all(20),
-              margin: EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.all(20),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: Colors.black
@@ -62,5 +62,4 @@ class ProfileUser extends GetView<HomeController>{
       ),
     );
   }
-
 }

@@ -10,20 +10,20 @@ class SignUp extends GetView<HomeController>{
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text('Sign Up'),
+        title: const Text('Sign Up'),
         centerTitle: true,
       ),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 30),
-              child: Text('Multi-level Association', style: TextStyle(fontSize: 30 ,fontWeight: FontWeight.bold, color: Colors.blue),),
+              margin: const EdgeInsets.symmetric(vertical: 30),
+              child: const Text('Multi-level Association', style: TextStyle(fontSize: 30 ,fontWeight: FontWeight.bold, color: Colors.blue),),
             ),
 
             Container(
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+              margin: const EdgeInsets.fromLTRB(0, 0, 0, 15),
               child: Column(
                 children: [
                   TextFormField(
@@ -78,13 +78,13 @@ class SignUp extends GetView<HomeController>{
                 else{
                   showModal(
                     configuration: FadeScaleTransitionConfiguration(
-                      transitionDuration: Duration(seconds: 1),
-                      reverseTransitionDuration: Duration(seconds: 2)
+                      transitionDuration: const Duration(seconds: 1),
+                      reverseTransitionDuration: const Duration(seconds: 2)
                     ),
                     context: context, 
                     builder: (context) => AlertDialog(
-                      title: Text('Error'),
-                      content: Text('You must enter all values'),
+                      title: const Text('Error'),
+                      content: const Text('You must enter all values'),
                       actions: [
                         TextButton(
                           onPressed: () {
@@ -97,7 +97,7 @@ class SignUp extends GetView<HomeController>{
                   );                  
                 }
               }, 
-              child: Text('Sign up')
+              child: const Text('Sign up')
             )
           ],
         ),

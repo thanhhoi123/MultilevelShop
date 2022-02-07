@@ -7,9 +7,10 @@ import 'package:shop_multilevel/app/modules/home/views/list_product.dart';
 class OrderProduct extends GetView<HomeController>{
   @override
   Widget build(BuildContext context) {
+    double widght = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order Screen'),
+        title: const Text('Cart'),
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
@@ -17,9 +18,9 @@ class OrderProduct extends GetView<HomeController>{
         child: Column(
           children: [
             Container(
-              width: 375,
-              padding: EdgeInsets.all(8),
-              margin: EdgeInsets.symmetric(vertical: 16),
+              width: widght,
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 3,
@@ -89,7 +90,7 @@ class OrderProduct extends GetView<HomeController>{
             ),
 
             Container(
-              margin: EdgeInsets.symmetric(vertical: 15),
+              margin: const EdgeInsets.symmetric(vertical: 15),
               width: 150,
               height: 50,
               child: ElevatedButton(
@@ -97,13 +98,13 @@ class OrderProduct extends GetView<HomeController>{
                   await controller.Buy();
                   showModal(
                     configuration: FadeScaleTransitionConfiguration(
-                      transitionDuration: Duration(seconds: 2),
-                      reverseTransitionDuration: Duration(seconds: 2)
+                      transitionDuration: const Duration(seconds: 2),
+                      reverseTransitionDuration: const Duration(seconds: 2)
                     ),
                     context: context, 
                     builder: (context) => AlertDialog(
-                      title: Text('Notification'),
-                      content: Text('Your order has been successfully placed'),
+                      title: const Text('Notification'),
+                      content: const Text('Your order has been successfully placed'),
                       actions: [
                         TextButton(
                           onPressed: () {
@@ -115,13 +116,12 @@ class OrderProduct extends GetView<HomeController>{
                     ),
                   );                  
                 }, 
-                child: Text('Buy')
+                child: const Text('Buy')
               ),
             )
           ],
         ),
       ),
     );    
-  }
-  
+  }  
 }

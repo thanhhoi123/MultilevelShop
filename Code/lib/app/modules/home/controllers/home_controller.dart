@@ -6,11 +6,14 @@ import 'package:shop_multilevel/app/data/product.dart';
 import 'package:shop_multilevel/app/data/user.dart';
 
 class HomeController extends GetxController {
+  //Sign in
   User? currentUser;
   String? txtEmailLogin;
   String? txtPasswordLogin;
+  final isLoadingSignIn = false.obs;
 
-  String? signUpName, signUpEmail, signUpPhone, signUpAddress, signUpPassword;
+  //Sign up
+  String? signUpName, signUpEmail, signUpPhone, signUpAddress, signUpPassword;  
 
   //Detail Product
   Product? currentProduct;

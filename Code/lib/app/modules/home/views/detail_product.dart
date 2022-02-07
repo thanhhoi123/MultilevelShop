@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:shop_multilevel/app/modules/home/controllers/home_controller.dart';
+import 'package:shop_multilevel/app/modules/home/navigation/dash_board.dart';
 import 'package:shop_multilevel/app/modules/home/views/order_product.dart';
 
 class DetailProduct extends GetView<HomeController>{
@@ -85,7 +86,7 @@ class DetailProduct extends GetView<HomeController>{
                     );                    
                   }
                   else{
-                    Get.to(() => OrderProduct());
+                    Get.to(() => DashBoard());
                   }                
                 }, 
                 child: Text('Add to cart', style: TextStyle(fontSize: 20),)
