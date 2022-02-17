@@ -1,6 +1,9 @@
 # MultilevelShop
 - 著者: ファム．タン．ホイ
 - このアプリは、オンライン販売をシミュレートするために作成されました。
+- これがテストするサンプルアカウントです：
+  +　Email: admin@example.com
+  +　Password: 123456
 
 # アプリの情報:
 - Dart / Flutterを使用して作成します
