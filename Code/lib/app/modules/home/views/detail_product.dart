@@ -51,7 +51,7 @@ class DetailProduct extends GetView<HomeController>{
                   Flexible(
                     child: TextField(
                       style: TextStyle(fontSize: 20),
-                      onSubmitted: (value){
+                      onChanged: (value){
                         controller.amount = value;
                       },
                     ),

@@ -39,7 +39,7 @@ class HomeView extends GetView<HomeController> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(4, 0, 8, 0),
                       child: TextField(
-                        onSubmitted: (value){
+                        onChanged: (value){
                           controller.txtEmailLogin = value;
                         },
                         decoration: InputDecoration(
@@ -62,7 +62,7 @@ class HomeView extends GetView<HomeController> {
                       padding: const EdgeInsets.fromLTRB(4, 10, 8, 0),
                       child: TextField(
                         obscureText: true,
-                        onSubmitted: (value){
+                        onChanged: (value){
                           controller.txtPasswordLogin = value;
                         },
                         decoration: InputDecoration(

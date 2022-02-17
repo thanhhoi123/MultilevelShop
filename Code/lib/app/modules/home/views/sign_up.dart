@@ -28,7 +28,7 @@ class SignUp extends GetView<HomeController>{
               child: Column(
                 children: [
                   TextFormField(
-                    onFieldSubmitted: (value){
+                    onChanged: (value){
                       controller.signUpName = value;
                     },
                     decoration: InputDecoration(
@@ -36,7 +36,7 @@ class SignUp extends GetView<HomeController>{
                     ),
                   ),
                   TextFormField(
-                    onFieldSubmitted: (value){
+                    onChanged: (value){
                       controller.signUpEmail = value;
                     },
                     decoration: InputDecoration(
@@ -44,7 +44,7 @@ class SignUp extends GetView<HomeController>{
                     ),
                   ),
                   TextFormField(
-                    onFieldSubmitted: (value){
+                    onChanged: (value){
                       controller.signUpPhone = value;
                     },
                     decoration: InputDecoration(
@@ -52,7 +52,7 @@ class SignUp extends GetView<HomeController>{
                     ),
                   ),
                   TextFormField(
-                    onFieldSubmitted: (value){
+                    onChanged: (value){
                       controller.signUpAddress = value;
                     },
                     decoration: InputDecoration(
@@ -60,7 +60,7 @@ class SignUp extends GetView<HomeController>{
                     ),
                   ),
                   TextFormField(
-                    onFieldSubmitted: (value){
+                    onChanged: (value){
                       controller.signUpPassword = value;
                     },
                     decoration: InputDecoration(
