@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:shop_multilevel/app/modules/home/navigation/dash_board.dart';
 import 'package:shop_multilevel/app/modules/home/views/list_product.dart';
 import 'package:shop_multilevel/app/modules/home/views/sign_up.dart';
+import 'package:shop_multilevel/app/widget/my_alert_dialog_widget.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -88,25 +89,11 @@ class HomeView extends GetView<HomeController> {
                     }
                     else{
                       controller.isLoadingSignIn.value = false;
-                      showModal(
-                        configuration: FadeScaleTransitionConfiguration(
-                          transitionDuration: const Duration(seconds: 1),
-                          reverseTransitionDuration: const Duration(seconds: 1)
-                        ),
-                        context: context, 
-                        builder: (context) => AlertDialog(
-                          title: const Text('Error'),
-                          content: const Text('Incorrect email or password'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Get.back();
-                              }, 
-                              child: Text('OK', style: TextStyle(color: Colors.purple[700]))
-                            )
-                          ],
-                        ),
-                      );
+                      MyAlertDialogWidget(
+                        title: 'Error', 
+                        content: 'Incorrect email or password',
+                        onClicked: () => Get.back()
+                      ).showCustomDialog(context);
                     }
                   },
                   child: controller.isLoadingSignIn.value

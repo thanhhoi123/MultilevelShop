@@ -2,7 +2,9 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_multilevel/app/modules/home/controllers/home_controller.dart';
+import 'package:shop_multilevel/app/modules/home/navigation/dash_board.dart';
 import 'package:shop_multilevel/app/modules/home/views/list_product.dart';
+import 'package:shop_multilevel/app/widget/my_alert_dialog_widget.dart';
 
 class OrderProduct extends GetView<HomeController>{
   @override
@@ -95,26 +97,20 @@ class OrderProduct extends GetView<HomeController>{
               height: 50,
               child: ElevatedButton(
                 onPressed: () async{
-                  await controller.Buy();
-                  showModal(
-                    configuration: FadeScaleTransitionConfiguration(
-                      transitionDuration: const Duration(seconds: 2),
-                      reverseTransitionDuration: const Duration(seconds: 2)
-                    ),
-                    context: context, 
-                    builder: (context) => AlertDialog(
-                      title: const Text('Notification'),
-                      content: const Text('Your order has been successfully placed'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Get.to(() => ListProduct());
-                          }, 
-                          child: Text('OK', style: TextStyle(color: Colors.purple[700]))
-                        )
-                      ],
-                    ),
-                  );                  
+                  if(await controller.Buy() == true){
+                    MyAlertDialogWidget(
+                      title: 'Notification',
+                      content: 'Your order has been successfully placed',
+                      onClicked: () => Get.to(() => DashBoard()),
+                    ).showCustomDialog(context);
+                  }
+                  else{
+                    MyAlertDialogWidget(
+                      title: 'Error',
+                      content: 'Cart is currently empty, please add to cart before purchasing',
+                      onClicked: () => Get.back(),
+                    ).showCustomDialog(context);
+                  }
                 }, 
                 child: const Text('Buy')
               ),

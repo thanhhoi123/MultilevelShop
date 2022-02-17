@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shop_multilevel/app/modules/home/controllers/home_controller.dart';
 import 'package:shop_multilevel/app/modules/home/views/home_view.dart';
+import 'package:shop_multilevel/app/widget/my_alert_dialog_widget.dart';
 
 class SignUp extends GetView<HomeController>{
   @override
@@ -76,25 +77,11 @@ class SignUp extends GetView<HomeController>{
                   Get.to(() => HomeView());
                 }
                 else{
-                  showModal(
-                    configuration: FadeScaleTransitionConfiguration(
-                      transitionDuration: const Duration(seconds: 1),
-                      reverseTransitionDuration: const Duration(seconds: 2)
-                    ),
-                    context: context, 
-                    builder: (context) => AlertDialog(
-                      title: const Text('Error'),
-                      content: const Text('You must enter all values'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Get.back();
-                          }, 
-                          child: Text('OK', style: TextStyle(color: Colors.purple[700]))
-                        )
-                      ],
-                    ),
-                  );                  
+                  MyAlertDialogWidget(
+                    content: 'You must enter all values',
+                    title: 'Error',
+                    onClicked: () => Get.back(),
+                  ).showCustomDialog(context);                  
                 }
               }, 
               child: const Text('Sign up')

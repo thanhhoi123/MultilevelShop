@@ -44,7 +44,7 @@ class ListProduct extends GetView<HomeController>{
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index){
                     return OpenContainer(
-                      transitionDuration: const Duration(seconds: 1),
+                      transitionDuration: const Duration(milliseconds: 750),
                       openBuilder: (context, action){
                         controller.currentProduct = snapshot.data![index];
                         return DetailProduct();

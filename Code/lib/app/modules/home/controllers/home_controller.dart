@@ -8,8 +8,8 @@ import 'package:shop_multilevel/app/data/user.dart';
 class HomeController extends GetxController {
   //Sign in
   User? currentUser;
-  String? txtEmailLogin;
-  String? txtPasswordLogin;
+  String txtEmailLogin = '';
+  String txtPasswordLogin = '';
   final isLoadingSignIn = false.obs;
 
   //Sign up
@@ -35,7 +35,7 @@ class HomeController extends GetxController {
   }
 
   Future<bool> login() async{
-    if(txtEmailLogin == null || txtPasswordLogin == null){
+    if(txtEmailLogin == '' || txtPasswordLogin == ''){
       return false;
     }
     else{
@@ -49,30 +49,40 @@ class HomeController extends GetxController {
     }
   }
 
-  bool Order(){
+  int Order(){
+    if(amount == ''){
+      return 0;
+    }
     if(int.parse(amount) > currentProduct!.amount!.toInt()){
-      return false;
+      return 1;
     }
     else{
       currentCart.listAmount!.add(amount);
       currentCart.listID!.add(currentProduct!.id);
       productCart.add(currentProduct!);
       listPrice.add(currentProduct!.price! * int.parse(amount));
-      return true;
+      return 2;
     }
   }
 
-  Future<void> Buy() async{
-    await HttpMethods.orderProduct(
-      currentUser!.id!.toInt(), 
-      currentUser!.address.toString(), 
-      1, 
-      currentCart.listID!, 
-      currentCart.listAmount!
-    );
-    productCart.clear();
-    currentCart.listID!.clear();
-    currentCart.listAmount!.clear();
+  Future<bool> Buy() async{
+    if(productCart.length == 0){
+      return false;
+    }
+    else{
+      await HttpMethods.orderProduct(
+        currentUser!.id!.toInt(), 
+        currentUser!.address.toString(), 
+        1, 
+        currentCart.listID!, 
+        currentCart.listAmount!
+      );
+      productCart.clear();
+      currentCart.listID!.clear();
+      currentCart.listAmount!.clear();
+      return true;
+    }
+    
   }
 
   void deleteProductCart(int index){

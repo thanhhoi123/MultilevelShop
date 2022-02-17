@@ -1,11 +1,9 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:shop_multilevel/app/modules/home/controllers/home_controller.dart';
 import 'package:shop_multilevel/app/modules/home/navigation/dash_board.dart';
-import 'package:shop_multilevel/app/modules/home/views/order_product.dart';
+import 'package:shop_multilevel/app/widget/my_alert_dialog_widget.dart';
 
 class DetailProduct extends GetView<HomeController>{
   @override
@@ -68,25 +66,25 @@ class DetailProduct extends GetView<HomeController>{
               width: 175,
               child: ElevatedButton(
                 onPressed: () {
-                  if(!controller.Order()){
-                    showDialog(
-                      context: context, 
-                      builder: (context) => AlertDialog(
-                        title: Text('Error'),
-                        content: Text('You must enter less than the remaining amount'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Get.back();
-                            }, 
-                            child: Text('OK', style: TextStyle(color: Colors.purple[700]))
-                          )
-                        ],
-                      ),
-                    );                    
-                  }
-                  else{
-                    Get.to(() => DashBoard());
+                  switch(controller.Order()){
+                    case 0:
+                      MyAlertDialogWidget(
+                        title: 'Error', 
+                        content: 'You need to enter the quantity you want to buy',
+                        onClicked: () => Get.back()
+                      ).showCustomDialog(context);
+                      break;
+
+                    case 1:
+                      MyAlertDialogWidget(
+                        title: 'Error',
+                        content: 'You must enter the quantity less than the remaining quantity',
+                        onClicked: () => Get.back()
+                      ).showCustomDialog(context);
+                      break;
+                    
+                    case 2:
+                      Get.to(() => DashBoard());
                   }                
                 }, 
                 child: Text('Add to cart', style: TextStyle(fontSize: 20),)
