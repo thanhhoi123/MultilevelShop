@@ -1,10 +1,8 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:shop_multilevel/app/modules/home/navigation/dash_board.dart';
-import 'package:shop_multilevel/app/modules/home/views/list_product.dart';
 import 'package:shop_multilevel/app/modules/home/views/sign_up.dart';
 import 'package:shop_multilevel/app/widget/my_alert_dialog_widget.dart';
 import '../controllers/home_controller.dart';
@@ -35,7 +33,7 @@ class HomeView extends GetView<HomeController> {
                     padding: const EdgeInsets.fromLTRB(8, 0, 50, 0),
                     child: const Text('Email: ', style: TextStyle(fontSize: 25),),
                 ),
-                Flexible(
+                Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(4, 0, 8, 0),
                       child: TextField(
@@ -57,7 +55,7 @@ class HomeView extends GetView<HomeController> {
                     padding: const EdgeInsets.fromLTRB(8, 10, 4, 0),
                     child: const Text('Password: ', style: TextStyle(fontSize: 25),),
                 ),
-                Flexible(
+                Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(4, 10, 8, 0),
                       child: TextField(
